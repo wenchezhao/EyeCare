@@ -1,4 +1,4 @@
-package main
+package win
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 )
 
 // Add this function to handle autostart
-func toggleAutoStart(enable bool) error {
+func ToggleAutoStart(enable bool) error {
 	if runtime.GOOS != "windows" {
 		return fmt.Errorf("autostart only supported on Windows")
 	}
@@ -42,7 +42,7 @@ func toggleAutoStart(enable bool) error {
 }
 
 // Add this function to check if autostart is enabled
-func isAutoStartEnabled() bool {
+func IsAutoStartEnabled() bool {
 	if runtime.GOOS != "windows" {
 		return false
 	}

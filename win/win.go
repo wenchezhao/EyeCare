@@ -1,4 +1,4 @@
-package main
+package win
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"golang.org/x/sys/windows"
 )
 
-func checkMutex() {
+func CheckProcess() {
 	// 创建全局唯一互斥量名字
 	mutexName := "Global\\MyUniqueGoAppMutexEyeCare"
 
