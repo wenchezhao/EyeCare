@@ -41,9 +41,8 @@
 ## 安装方法
 
 ```bash
-# 直接下载发布版本
-# 或从源码编译
-go build
+# 源码编译
+go build -ldflags "-s -w -H=windowsgui" -o EyeCare.exe
 ```
 
 ## 注意事项
@@ -52,15 +51,7 @@ go build
 - 建议在光线充足的环境下使用
 - 如果感觉眼睛不适，请及时就医
 
-## License
 
-MIT License
-
-## 贡献
-
-欢迎提交 Issue 和 Pull Request
-
-# 生成图表
+# 其他
+## 生成图表
 rsrc.exe -ico icon.ico -o rsrc.syso
-# 编译
-go build -ldflags "-s -w -H=windowsgui" -o EyeCare.exe

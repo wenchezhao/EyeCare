@@ -25,6 +25,7 @@ func DefaultConfig() *Config {
 		EnableFullscreenIgnore: true,
 		EnableProcessWhitelist: false,
 		ProcessWhitelist:       []string{},
+		DarkTheme:              true,
 	}
 }
 
