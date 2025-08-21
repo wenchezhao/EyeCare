@@ -60,5 +60,5 @@ func getIcon() {
 	if err != nil {
 		return
 	}
-	fmt.Println("get icon success", base64.StdEncoding.EncodeToString(bytes))
+	fmt.Println("get icon success\n", base64.StdEncoding.EncodeToString(bytes))
 }
