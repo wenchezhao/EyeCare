@@ -70,3 +70,30 @@ func ShowFullScreenPopup(a fyne.App, cfg *config.Config) {
 	}, false)
 
 }
+
+var versionWin fyne.Window // 全局变量，保存版本窗口
+
+func ShowVersionInfo(a fyne.App) {
+	// 如果窗口已经存在并且没有关闭，就直接显示
+	if versionWin != nil {
+		versionWin.Show()
+		versionWin.RequestFocus()
+		return
+	}
+
+	// 创建窗口
+	versionWin = a.NewWindow("版本信息")
+	countdownLabel := widget.NewLabel("EyeCare 版本 v1.0.0\n作者: 非秃头程序员\n")
+	content := container.NewCenter(countdownLabel)
+	versionWin.SetContent(content)
+	versionWin.Resize(fyne.NewSize(300, 150))
+	versionWin.CenterOnScreen()
+
+	// 监听关闭事件，把全局变量置空，避免下次 Show 不了
+	versionWin.SetCloseIntercept(func() {
+		versionWin.Close()
+		versionWin = nil
+	})
+
+	versionWin.Show()
+}

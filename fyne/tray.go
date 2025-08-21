@@ -18,6 +18,14 @@ func ShowTrayMenu(a fyne.App, cfg *config.Config, iconR *fyne.StaticResource) {
 		// 添加主题切换菜单项
 		themeItem := fyne.NewMenuItem("暗色主题", nil)
 		themeItem.Checked = cfg.DarkTheme
+		// 版本弹框
+		versionMenuItem := fyne.NewMenuItem("版本信息", func() {
+			ShowVersionInfo(a)
+		})
+		// 退出
+		quiteMenuItem := fyne.NewMenuItem("退出", func() {
+			a.Quit()
+		})
 		themeItem.Action = func() {
 			cfg.DarkTheme = !cfg.DarkTheme
 			// 保存配置
@@ -37,9 +45,8 @@ func ShowTrayMenu(a fyne.App, cfg *config.Config, iconR *fyne.StaticResource) {
 			menu := fyne.NewMenu("护眼提醒",
 				autostartItem,
 				themeItem,
-				fyne.NewMenuItem("退出", func() {
-					a.Quit()
-				}),
+				versionMenuItem,
+				quiteMenuItem,
 			)
 			desk.SetSystemTrayMenu(menu)
 		}
@@ -63,9 +70,8 @@ func ShowTrayMenu(a fyne.App, cfg *config.Config, iconR *fyne.StaticResource) {
 			menu := fyne.NewMenu("护眼提醒",
 				autostartItem,
 				themeItem,
-				fyne.NewMenuItem("退出", func() {
-					a.Quit()
-				}),
+				versionMenuItem,
+				quiteMenuItem,
 			)
 			// 刷新菜单显示
 			desk.SetSystemTrayMenu(menu)
@@ -74,9 +80,8 @@ func ShowTrayMenu(a fyne.App, cfg *config.Config, iconR *fyne.StaticResource) {
 		menu := fyne.NewMenu("护眼提醒",
 			autostartItem,
 			themeItem,
-			fyne.NewMenuItem("退出", func() {
-				a.Quit()
-			}),
+			versionMenuItem,
+			quiteMenuItem,
 		)
 		desk.SetSystemTrayIcon(iconR)
 		desk.SetSystemTrayMenu(menu)
