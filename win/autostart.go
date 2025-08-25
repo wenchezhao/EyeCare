@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"runtime"
 	"syscall"
+
+	"golang.org/x/sys/windows/registry"
 )
 
 // Add this function to handle autostart
@@ -48,5 +50,42 @@ func IsAutoStartEnabled() bool {
 	}
 	startupPath := filepath.Join(os.Getenv("APPDATA"), "Microsoft\\Windows\\Start Menu\\Programs\\Startup", "EyeCare.lnk")
 	_, err := os.Stat(startupPath)
+	return err == nil
+}
+
+func ToggleAutoStartRegistry(enable bool) error {
+	key, _, err := registry.CreateKey(
+		registry.CURRENT_USER,
+		`Software\Microsoft\Windows\CurrentVersion\Run`,
+		registry.SET_VALUE,
+	)
+	if err != nil {
+		return err
+	}
+	defer key.Close()
+
+	exePath, err := os.Executable()
+	if err != nil {
+		return err
+	}
+
+	if enable {
+		return key.SetStringValue("EyeCare", exePath)
+	}
+	return key.DeleteValue("EyeCare")
+}
+
+func IsAutoStartEnabledRegistry() bool {
+	key, err := registry.OpenKey(
+		registry.CURRENT_USER,
+		`Software\Microsoft\Windows\CurrentVersion\Run`,
+		registry.QUERY_VALUE,
+	)
+	if err != nil {
+		return false
+	}
+	defer key.Close()
+
+	_, _, err = key.GetStringValue("EyeCare")
 	return err == nil
 }

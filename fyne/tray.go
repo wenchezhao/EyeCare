@@ -14,7 +14,7 @@ func ShowTrayMenu(a fyne.App, cfg *config.Config, iconR *fyne.StaticResource) {
 	if desk, ok := a.(desktop.App); ok {
 		// 创建托盘菜单
 		autostartItem := fyne.NewMenuItem("开机启动", nil)
-		autostartItem.Checked = win.IsAutoStartEnabled()
+		autostartItem.Checked = win.IsAutoStartEnabledRegistry()
 		// 添加主题切换菜单项
 		themeItem := fyne.NewMenuItem("暗色主题", nil)
 		themeItem.Checked = cfg.DarkTheme
@@ -53,9 +53,9 @@ func ShowTrayMenu(a fyne.App, cfg *config.Config, iconR *fyne.StaticResource) {
 		autostartItem.Action = func() {
 			var err error
 			if autostartItem.Checked {
-				err = win.ToggleAutoStart(false)
+				err = win.ToggleAutoStartRegistry(false)
 			} else {
-				err = win.ToggleAutoStart(true)
+				err = win.ToggleAutoStartRegistry(true)
 			}
 
 			if err != nil {
